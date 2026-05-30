@@ -101,7 +101,7 @@ export default function WorkspacePage() {
   // 9. Photo Gallery State (Mock Upload)
   const [gallery, setGallery] = useState([
     { id: 1, url: "https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?q=80&w=600", desc: "Engagement Announcement Shot" },
-    { id: 2, url: "https://images.unsplash.com/photo-1519225495810-7517c300ea64?q=80&w=600", desc: "Tasting cake selections" },
+    { id: 2, url: "https://images.unsplash.com/photo-1525956570400-207225f50dd6?q=80&w=600", desc: "Tasting cake selections" },
   ]);
   const [galleryUrl, setGalleryUrl] = useState("");
   const [galleryDesc, setGalleryDesc] = useState("");
