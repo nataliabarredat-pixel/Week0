@@ -1,4 +1,4 @@
-# NatProy | Complete Couple Wedding Planner Platform 🌸
+# NatProj | Complete Couple Wedding Planner Platform 🌸
 
 Welcome to the **NatProy** repository. This project is a premium, luxury wedding planning application designed to handle a couple's entire planning workspace.
 
