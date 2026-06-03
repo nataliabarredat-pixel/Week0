@@ -62,6 +62,11 @@ export default function Footer() {
             </h3>
             <ul className="mt-4 space-y-2.5">
               <li>
+                <Link href="/research" className="text-sm font-semibold text-rose-700 hover:text-rose-600 dark:text-rose-400 dark:hover:text-rose-300">
+                  Research Module 🌸
+                </Link>
+              </li>
+              <li>
                 <Link href="/docs" className="text-sm text-stone-500 hover:text-rose-600 dark:text-stone-400 dark:hover:text-rose-300">
                   Technical Docs
                 </Link>

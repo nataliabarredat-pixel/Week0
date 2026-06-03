@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Heart, Sparkles, LayoutDashboard, BookOpen, Layers, CheckCircle2, AlertCircle } from "lucide-react";
+import { Heart, Sparkles, LayoutDashboard, BookOpen, Layers, CheckCircle2, AlertCircle, BarChart2 } from "lucide-react";
 import { useEffect, useState } from "react";
 
 export default function Navbar() {
@@ -63,6 +63,17 @@ export default function Navbar() {
             >
               <Layers className="h-4 w-4" />
               <span>Roadmap</span>
+            </Link>
+            <Link
+              href="/research"
+              className={`flex items-center space-x-1.5 text-sm font-medium tracking-wide transition-colors ${
+                pathname.startsWith("/research") 
+                  ? "text-rose-600 dark:text-rose-400" 
+                  : "text-stone-600 hover:text-rose-600 dark:text-stone-300 dark:hover:text-rose-400"
+              }`}
+            >
+              <BarChart2 className="h-4 w-4" />
+              <span>Research</span>
             </Link>
             <Link
               href="/docs"
