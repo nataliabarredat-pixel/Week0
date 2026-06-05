@@ -65,17 +65,6 @@ export default function Navbar() {
               <span>Roadmap</span>
             </Link>
             <Link
-              href="/core"
-              className={`flex items-center space-x-1.5 text-sm font-medium tracking-wide transition-colors ${
-                pathname.startsWith("core") 
-                  ? "text-rose-600 dark:text-rose-400" 
-                  : "text-stone-600 hover:text-rose-600 dark:text-stone-300 dark:hover:text-rose-400"
-              }`}
-            >
-              <BarChart2 className="h-4 w-4" />
-              <span>Core</span>
-            </Link>
-            <Link
               href="/research"
               className={`flex items-center space-x-1.5 text-sm font-medium tracking-wide transition-colors ${
                 pathname.startsWith("/research") 
