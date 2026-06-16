@@ -79,6 +79,31 @@ export default function Navbar() {
               <BarChart2 className="h-4 w-4" />
               <span>Research</span>
             </Link>
+
+            <Link
+              href="/product"
+              className={`flex items-center space-x-1.5 text-sm font-medium tracking-wide transition-colors ${
+                pathname.startsWith("/product") 
+                  ? "text-rose-600 dark:text-rose-400" 
+                  : "text-stone-600 hover:text-rose-600 dark:text-stone-300 dark:hover:text-rose-400"
+              }`}
+            >
+              <BarChart2 className="h-4 w-4" />
+              <span>Product</span>
+            </Link>
+
+            <Link
+              href="/pricing"
+              className={`flex items-center space-x-1.5 text-sm font-medium tracking-wide transition-colors ${
+                pathname.startsWith("/pricing") 
+                  ? "text-rose-600 dark:text-rose-400" 
+                  : "text-stone-600 hover:text-rose-600 dark:text-stone-300 dark:hover:text-rose-400"
+              }`}
+            >
+              <BarChart2 className="h-4 w-4" />
+              <span>Pricing</span>
+            </Link>
+            
             <Link
               href="/docs"
               className={`flex items-center space-x-1.5 text-sm font-medium tracking-wide transition-colors ${
