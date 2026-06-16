@@ -65,7 +65,7 @@ export default function Navbar() {
                   : "text-stone-600 hover:text-rose-600 dark:text-stone-300 dark:hover:text-rose-400"
               }`}
             >
-              <BarChart2 className="h-4 w-4" />
+              <Heart className="h-4 w-4" />
               <span>Core</span>
             </Link>
             <Link
