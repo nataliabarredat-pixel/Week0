@@ -88,7 +88,7 @@ export default function Navbar() {
                   : "text-stone-600 hover:text-rose-600 dark:text-stone-300 dark:hover:text-rose-400"
               }`}
             >
-              <BarChart2 className="h-4 w-4" />
+              <Compass className="h-4 w-4" />
               <span>Product</span>
             </Link>
 
@@ -100,7 +100,7 @@ export default function Navbar() {
                   : "text-stone-600 hover:text-rose-600 dark:text-stone-300 dark:hover:text-rose-400"
               }`}
             >
-              <BarChart2 className="h-4 w-4" />
+              <DollarSign className="h-4 w-4" />
               <span>Pricing</span>
             </Link>
             
