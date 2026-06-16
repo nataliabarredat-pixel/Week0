@@ -57,6 +57,7 @@ export default function Navbar() {
               <LayoutDashboard className="h-4 w-4" />
               <span>Workspace</span>
             </Link>
+            
            <Link
               href="/core"
               className={`flex items-center space-x-1.5 text-sm font-medium tracking-wide transition-colors ${
