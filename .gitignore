@@ -1,0 +1,36 @@
+# dependencies
+/node_modules
+/.pnp
+.pnp.js
+Week0/node_modules
+
+# testing
+/coverage
+
+# next.js
+/.next/
+/out/
+Week0/.next/
+Week0/out/
+
+# production
+/build
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# local env files
+.env*.local
+Week0/.env*.local
+
+# vercel
+.vercel
+Week5/
+Week0/.vercel
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts
+Week0/next-env.d.ts

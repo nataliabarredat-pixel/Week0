@@ -77,7 +77,7 @@ export default function ResearchPage() {
                 onClick={() => setActiveTab(tab.id)}
                 className={`flex items-center space-x-2 px-4 py-3.5 text-xs uppercase tracking-wider font-bold border-b-2 transition-all whitespace-nowrap ${
                   isActive
-                    ? "border-rose-500 text-rose-600 dark:text-rose-400"
+                    ? "border-rose-500 text-rose-600 dark:text-rose-455"
                     : "border-transparent text-stone-500 hover:text-rose-500 hover:border-rose-300 dark:text-stone-400"
                 }`}
               >
@@ -110,7 +110,7 @@ export default function ResearchPage() {
                   { value: "15+", label: "Vendors Coordinated", desc: "Average number of distinct contracts, invoices, and schedules couples must balance." },
                 ].map((stat, idx) => (
                   <div key={idx} className="flex space-x-4 p-4 rounded-xl border border-stone-200 bg-white dark:border-stone-850 dark:bg-stone-900/30">
-                    <div className="font-serif text-3xl font-bold text-rose-600 dark:text-rose-400 shrink-0">
+                    <div className="font-serif text-3xl font-bold text-rose-600 dark:text-rose-450 shrink-0">
                       {stat.value}
                     </div>
                     <div className="space-y-1">
@@ -128,7 +128,7 @@ export default function ResearchPage() {
                 Root Causes of Stress
               </h3>
               
-              <div className="space-y-4 text-xs md:text-sm text-stone-600 dark:text-stone-450 leading-relaxed font-light">
+              <div className="space-y-4 text-xs md:text-sm text-stone-600 dark:text-stone-455 leading-relaxed font-light">
                 <p>
                   <strong>1. High-Stake Decisions:</strong> Because weddings are seen as once-in-a-lifetime events, the emotional weight of every decision (from napkin shades to seating charts) is magnified.
                 </p>
@@ -189,10 +189,10 @@ export default function ResearchPage() {
                 <thead className="bg-stone-50 dark:bg-stone-950 font-semibold uppercase tracking-wider text-stone-500">
                   <tr>
                     <th className="px-6 py-4">Alternative</th>
-                    <th className={`px-6 py-4 ${matrixFilter === "adfree" ? "bg-rose-500/10 text-rose-700 dark:text-rose-300" : ""}`}>Ad Clutter</th>
+                    <th className={`px-6 py-4 ${matrixFilter === "adfree" ? "bg-rose-500/10 text-rose-700 dark:text-rose-350" : ""}`}>Ad Clutter</th>
                     <th className="px-6 py-4">Guest RSVP Sync</th>
                     <th className="px-6 py-4">Seating Tools</th>
-                    <th className={`px-6 py-4 ${matrixFilter === "collaboration" ? "bg-rose-500/10 text-rose-700 dark:text-rose-300" : ""}`}>Crew Delegation</th>
+                    <th className={`px-6 py-4 ${matrixFilter === "collaboration" ? "bg-rose-500/10 text-rose-700 dark:text-rose-350" : ""}`}>Crew Delegation</th>
                     <th className="px-6 py-4">Flexibility</th>
                   </tr>
                 </thead>
@@ -208,7 +208,7 @@ export default function ResearchPage() {
                             : "text-stone-600 dark:text-stone-400"
                         }`}
                       >
-                        <td className="px-6 py-4 font-bold border-r dark:border-stone-850">
+                        <td className="px-6 py-4 font-bold border-r dark:border-stone-855">
                           {comp.name}
                         </td>
                         <td className={`px-6 py-4 ${matrixFilter === "adfree" ? "bg-rose-500/5 font-bold" : ""}`}>
@@ -233,7 +233,7 @@ export default function ResearchPage() {
                               {comp.crew}
                             </span>
                           ) : (
-                            <span className="flex items-center text-emerald-600 dark:text-emerald-450">
+                            <span className="flex items-center text-emerald-600 dark:text-emerald-455">
                               <CheckCircle2 className="h-4 w-4 mr-1.5 shrink-0" />
                               {comp.crew}
                             </span>
@@ -368,7 +368,7 @@ export default function ResearchPage() {
                     <span className="text-[10px] font-bold uppercase tracking-wider text-stone-400">
                       Est. Budget Slippage
                     </span>
-                    <h3 className="font-serif font-bold text-2xl text-rose-600 dark:text-rose-400">
+                    <h3 className="font-serif font-bold text-2xl text-rose-600 dark:text-rose-450">
                       ${estimatedSlippage.toLocaleString()}
                     </h3>
                   </div>
@@ -421,9 +421,9 @@ export default function ResearchPage() {
                 <p className="text-xs text-stone-500 dark:text-stone-400 leading-relaxed font-light">
                   {gap.desc}
                 </p>
-                <div className="h-px bg-stone-100 dark:bg-stone-800" />
+                <div className="h-px bg-stone-100 dark:bg-stone-850" />
                 <div className="space-y-1">
-                  <span className="text-[10px] uppercase font-bold text-rose-800 dark:text-rose-450 tracking-wider">
+                  <span className="text-[10px] uppercase font-bold text-rose-800 dark:text-rose-455 tracking-wider">
                     Our Solution Gap
                   </span>
                   <p className="text-xs text-stone-700 dark:text-stone-300 font-medium leading-relaxed">
