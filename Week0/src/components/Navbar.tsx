@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Heart, Sparkles, LayoutDashboard, BookOpen, Layers, CheckCircle2, AlertCircle, BarChart2 } from "lucide-react";
+import { Heart, Sparkles, LayoutDashboard, BookOpen, Layers, CheckCircle2, AlertCircle, BarChart2, DollarSign, Compass } from "lucide-react";
 import { useEffect, useState } from "react";
 
 export default function Navbar() {
@@ -66,7 +66,7 @@ export default function Navbar() {
                   : "text-stone-600 hover:text-rose-600 dark:text-stone-300 dark:hover:text-rose-400"
               }`}
             >
-              <BarChart2 className="h-4 w-4" />
+              <Heart className="h-4 w-4" />
               <span>Core</span>
             </Link>
             <Link
@@ -89,7 +89,7 @@ export default function Navbar() {
                   : "text-stone-600 hover:text-rose-600 dark:text-stone-300 dark:hover:text-rose-400"
               }`}
             >
-              <BarChart2 className="h-4 w-4" />
+              <Compass className="h-4 w-4" />
               <span>Product</span>
             </Link>
 
@@ -101,7 +101,7 @@ export default function Navbar() {
                   : "text-stone-600 hover:text-rose-600 dark:text-stone-300 dark:hover:text-rose-400"
               }`}
             >
-              <BarChart2 className="h-4 w-4" />
+              <DollarSign className="h-4 w-4" />
               <span>Pricing</span>
             </Link>
             
