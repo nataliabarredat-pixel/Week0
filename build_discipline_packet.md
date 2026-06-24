@@ -197,3 +197,96 @@ Mockup Image Reference:
 ## 10. Scope Cuts
 - **Real Payment Gateways (Stripe)**: Financial transactions are simulated with high-fidelity mockup modals rather than making real payments.
 - **Live SMS API integrations**: Simulated messages are rendered inside mock notifications rather than utilizing a paid Twilio API.
+
+---
+
+# PART 3: MARKETING ENGINE & CONTENT SYSTEM (`/marketing`)
+
+## 1. Problem Definition
+Startups and planners lack an integrated brand management tool to align target personas, landing page copies, social content assets, and A/B verification suites. They manually copy copyblocks, lose track of campaign calendar sequences, and have no way of measuring headline performances locally. The **Marketing Engine & Content System** solves this by consolidating brand systems, target personas, social posts, reels scripts, campaign calendars, headline A/B analytics logs, and a clipboard copy/JSON export manager.
+
+## 2. User Definition
+- **Startup Marketing Leads**: Wanting to review campaign posts and content script copies.
+- **Freelance Wedding Coordinators**: Designing target personas for different service segments.
+- **Evaluators & Graders**: Reviewing A/B test results and software flow validations live on the page.
+
+## 3. Product Spec
+- **Homepage Upgrade**:
+  - Dynamically serve Headline A ("Design Your Perfect Day with EverAfter") or Headline B ("EverAfter | The Premium Wedding Workspace for Discerning Couples") randomly to users.
+  - Track impressions and CTA click-conversions in local storage.
+- **Marketing Page (/marketing)**:
+  - *Brand System Board*: Pre-defined primary/secondary color schemes, brand fonts, and tone guidelines.
+  - *Target Persona Card*: Pre-defined profile details (Charlotte, 28, corporate coordinator; Marcus, 32, tech lead).
+  - *Content Cards Grid*:
+    - **10 Social Posts**: Curated copyblocks for Instagram, Pinterest, LinkedIn with copy buttons.
+    - **3 Video Scripts**: Curated hooks, video descriptions, and CTA copy.
+    - **14-day Content Campaign Calendar**: Structured daily posts sequence across channels.
+  - *A/B Headline Tester Dashboard*: Displays impressions, click counts, and conversion rates for Headline A and Headline B. Includes an interactive "Simulate 100 Visits" button to generate randomized traffic.
+  - *Copy/Export Toolkit*: Clipboard triggers on all copy blocks, plus a "Download All Assets as JSON" export handler.
+  - *Saved Assets Persistence*: Save selected copyblocks, personas, or campaigns to Supabase `marketing_assets` table (or local storage sandbox fallback) with sidebar history.
+  - *Live Test Runner Widget*: Runs the required 5 tests.
+
+### Acceptance Criteria
+- `/marketing` loads with responsive tabs for Brand, Persona, Content, and A/B Tester.
+- Clicking "Simulate 100 Visits" randomly adds impressions/clicks to Headline A and B, calculating conversion rates dynamically.
+- Copy buttons successfully trigger clipboard alerts.
+- Saving a marketing asset places it in the sidebar list; deleting it purges it.
+- Running the live verification suite outputs detailed logs and green checkmark badges.
+
+## 4. UX Mockup Prompt
+"Create a clean, modern UX mockup for a student-built web app page: Marketing Engine + Content System. The page should be practical, buildable in Next.js and Tailwind, and include clear sections for user input, AI/agent output, saved results, and testing evidence. Use a simple startup-product aesthetic. Avoid complex animations or expensive features."
+
+Mockup Image Reference:
+![Marketing Mockup](file:///C:/Users/user/.gemini/antigravity/brain/e8f28ebc-30e7-4217-86c5-ed41feed6f9e/marketing_mockup_1782276092030.png)
+
+## 5. Architecture Sketch
+- **Frontend Components**:
+  - `/marketing/page.tsx` (Client component showcasing assets, analytics logs, and test suites).
+  - `page.tsx` (Modified homepage serving A/B headlines and writing impressions/clicks to local storage).
+- **Backend Service**: Graceful database handler at `src/utils/supabaseClient.ts` reading from/writing to `marketing_assets` table.
+- **Data Flow**:
+  1. Visitor opens `/` -> local storage records version impression.
+  2. Click CTA -> local storage records conversion click.
+  3. Planners load `/marketing` -> Reads stored metrics, runs simulator, writes custom assets to Supabase/localStorage.
+  4. Test suite triggered -> Runs script checks and displays pass statuses.
+
+## 6. Tech Stack
+| Tool / Library | Purpose | Rationale |
+| :--- | :--- | :--- |
+| **Next.js App Router** | Core framework | File-based client/server routes |
+| **Tailwind CSS v4** | Styling | Standard luxury fonts and HSL colors |
+| **Lucide Icons** | Visual assets | Vector icons for cards, downloads, and alerts |
+| **Supabase client** | Asset saving | postgres persistence for marketing assets |
+
+## 7. DevOps Plan
+- **Git Commits**: At least 5 commits tracking the build.
+- **Vercel Deployment**: Live route at `/marketing`.
+- **SQL Table Creation Blueprint**:
+  ```sql
+  CREATE TABLE marketing_assets (
+    id BIGSERIAL PRIMARY KEY,
+    asset_type TEXT NOT NULL,
+    title TEXT NOT NULL,
+    content JSONB NOT NULL,
+    created_at TIMESTAMPTZ DEFAULT NOW()
+  );
+  ```
+
+## 8. Test Plan (5 Required Tests)
+1. **A/B Test 1 (Conversion Rate)**: Asserts that conversion rate matches `(clicks / impressions) * 100` mathematically.
+2. **A/B Test 2 (Headline Display)**: Asserts that the homepage correctly serves either Headline A or Headline B text based on the assigned version identifier.
+3. **Software Test 1 (Asset Persistence)**: Saves a custom marketing asset to the database/localStorage and verifies it appears in the saved assets history list.
+4. **Software Test 2 (Copy to Clipboard)**: Verifies that clicking "Copy" triggers the clipboard API or mock fallback, successfully saving text content.
+5. **Software Test 3 (Delete Sync)**: Deletes a saved asset and verifies the list updates immediately.
+
+## 9. Codex/Claude Code Implementation Prompt
+"Implement client-side routes `/` and `/marketing` inside `src/app/page.tsx` and `src/app/marketing/page.tsx`.
+1. Upgrade `page.tsx` to read or assign an A/B headline version ('A' or 'B') from local storage. Render the selected headline in the hero. Track impressions and clicks on the 'Enter Couple Workspace' button.
+2. Create `/marketing` with tabs for Brand Guidelines, Target Personas, Content System (10 social posts, 3 video scripts, 14-day campaign calendar), and Headline A/B Tester Board.
+3. Add 'Copy to Clipboard' buttons to posts/scripts, and a 'Download as JSON' export button.
+4. Save custom copy assets using Supabase table `marketing_assets` (with local storage mock fallback).
+5. Add a 'Live Test Runner' console widget on `/marketing` that executes all 5 tests (2 A/B, 3 software) and outputs logs and pass badges."
+
+## 10. Scope Cuts
+- **Automated Social Publishing (API posting)**: Posts are copied manually rather than calling Facebook/LinkedIn Graph APIs.
+- **Analytics Database Engine**: local storage is used to aggregate A/B impressions instead of a heavy Google Analytics tracker integration.
