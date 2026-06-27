@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { 
   BookOpen, Terminal, Database, Cloud, FileText, CheckCircle2, 
-  AlertTriangle, Copy, Check, ChevronRight, Sparkles 
+  AlertTriangle, Copy, Check, ChevronRight, Sparkles, Megaphone, MessageSquare 
 } from "lucide-react";
 import { isSupabaseConfigured, getMockDatabase } from "@/utils/supabaseClient";
 
@@ -83,6 +83,28 @@ CREATE TABLE custom_quotes (
   storage_gb INTEGER NOT NULL,
   total_price NUMERIC(10,2) NOT NULL,
   created_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- 6. Marketing Engine Assets Table
+CREATE TABLE marketing_assets (
+  id BIGSERIAL PRIMARY KEY,
+  asset_type TEXT NOT NULL,
+  title TEXT NOT NULL,
+  content JSONB NOT NULL,
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- 7. Chat Assistant Conversations Table
+CREATE TABLE chat_records (
+  id BIGSERIAL PRIMARY KEY,
+  couple_names TEXT,
+  budget NUMERIC(10,2),
+  wedding_style TEXT,
+  messages JSONB NOT NULL DEFAULT '[]'::jsonb,
+  escalation_contact JSONB,
+  feedback_rating INTEGER,
+  feedback_comments TEXT,
+  created_at TIMESTAMPTZ DEFAULT NOW()
 );`;
 
   const codeCorePrompt = `You are a creative wedding planner and design agent. Your task is to extract a wedding theme blueprint from the couple's name, their style choice, keywords, priorities, and description.
@@ -119,6 +141,8 @@ Generate a structured JSON object containing:
               { label: "Database Schema", href: "#database-schema", icon: FileText },
               { label: "Generative Core Prompt", href: "#core-prompt", icon: Sparkles },
               { label: "Pricing Testing Scenarios", href: "#pricing-tests", icon: CheckCircle2 },
+              { label: "Marketing Testing Scenarios", href: "#marketing-tests", icon: Megaphone },
+              { label: "Chat Testing Scenarios", href: "#chat-tests", icon: MessageSquare },
               { label: "Vercel Deployment", href: "#vercel-deployment", icon: Cloud },
             ].map((link, idx) => {
               const Icon = link.icon;
@@ -366,6 +390,67 @@ Generate a structured JSON object containing:
                 <li>&bull; **Empty Name Validation**: Asserts that trying to request a quote without a Couple Name throws an error banner and halts insertion.</li>
                 <li>&bull; **Database Save & Reload Sync**: Creates a test quote, saves it, and verifies it appears in the sidebar records.</li>
                 <li>&bull; **Delete Synchronizer**: Removes the test quote and confirms the sidebar list updates instantly.</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        {/* 3.7 MARKETING TESTING SCENARIOS */}
+        <section id="marketing-tests" className="scroll-mt-24 space-y-6">
+          <div className="flex items-center space-x-2 text-stone-900 dark:text-white">
+            <Megaphone className="h-6 w-6 text-rose-600 dark:text-rose-455" />
+            <h2 className="font-serif text-2xl font-bold tracking-tight">Interactive Marketing Test Plan</h2>
+          </div>
+          <p className="text-sm text-stone-500 dark:text-stone-400 font-light leading-relaxed">
+            The platform embeds a live test execution suite on the `/marketing` page. The suite asserts 2 A/B conversion/headline logic verifications and 3 software flow operations:
+          </p>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="p-4 rounded-xl border border-stone-250 dark:border-stone-850 bg-white/40 dark:bg-stone-900/10 space-y-2">
+              <h4 className="font-serif font-bold text-sm text-stone-850 dark:text-stone-100">1. A/B Testing Verification</h4>
+              <ul className="space-y-2 text-xs text-stone-500 dark:text-stone-400 font-light">
+                <li>&bull; **Conversion Rate Math**: Asserts that the client conversion rate math calculations (`(clicks / impressions) * 100`) resolve to correct percentages.</li>
+                <li>&bull; **Headline Serving**: Validates that standard vs luxury-focused hero headline configurations are properly assigned and served based on localStorage version parameters.</li>
+              </ul>
+            </div>
+
+            <div className="p-4 rounded-xl border border-stone-250 dark:border-stone-850 bg-white/40 dark:bg-stone-900/10 space-y-2">
+              <h4 className="font-serif font-bold text-sm text-stone-850 dark:text-stone-100">2. Software Flow Verification</h4>
+              <ul className="space-y-2 text-xs text-stone-500 dark:text-stone-400 font-light">
+                <li>&bull; **Asset Persistence Sync**: Confirms that saving individual social posts, video scripts, calendars, or color systems updates the saved registry in the cloud or local storage sandbox.</li>
+                <li>&bull; **Clipboard API Copy**: Asserts that clicking copy elements triggers clipboard writes for campaign materials.</li>
+                <li>&bull; **Sidebar Purge/Delete**: Asserts that deleting assets from the database or local registry updates listing elements dynamically.</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        {/* 3.8 CHAT TESTING SCENARIOS */}
+        <section id="chat-tests" className="scroll-mt-24 space-y-6">
+          <div className="flex items-center space-x-2 text-stone-900 dark:text-white">
+            <MessageSquare className="h-6 w-6 text-rose-600 dark:text-rose-455" />
+            <h2 className="font-serif text-2xl font-bold tracking-tight">Interactive Guided Chat Test Plan</h2>
+          </div>
+          <p className="text-sm text-stone-500 dark:text-stone-400 font-light leading-relaxed">
+            The platform embeds a live test execution suite on the `/chat` page. The suite asserts 3 software flow tests and 3 simulated user scenarios:
+          </p>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="p-4 rounded-xl border border-stone-250 dark:border-stone-850 bg-white/40 dark:bg-stone-900/10 space-y-2">
+              <h4 className="font-serif font-bold text-sm text-stone-850 dark:text-stone-100">1. Software Verification</h4>
+              <ul className="space-y-2 text-xs text-stone-500 dark:text-stone-400 font-light">
+                <li>&bull; **3-Step Intake Transitions**: Asserts that client onboarding correctly steps through Q1, Q2, and Q3, and records values before unlocking the conversation panel.</li>
+                <li>&bull; **Guardrail Blocker**: Asserts that query texts lacking wedding-related keywords trigger off-topic warning states instead of regular responses.</li>
+                <li>&bull; **Database Persistence**: Validates that chat message histories save and delete successfully in the PostgreSQL table or sandbox registry.</li>
+              </ul>
+            </div>
+
+            <div className="p-4 rounded-xl border border-stone-250 dark:border-stone-850 bg-white/40 dark:bg-stone-900/10 space-y-2">
+              <h4 className="font-serif font-bold text-sm text-stone-850 dark:text-stone-100">2. External User Scenario Testing</h4>
+              <ul className="space-y-2 text-xs text-stone-500 dark:text-stone-400 font-light">
+                <li>&bull; **Charlotte's Budget Allocation**: Verifies that when a planner inputs Charlotte's parameters, the assistant contextually calculates her venue & catering limitations.</li>
+                <li>&bull; **Marcus's Checkpoint Escalation**: Validates that human checkpoint requests collect contact details and flag records properly for advisors.</li>
+                <li>&bull; **Off-Topic Query Rejection**: Asserts that random non-wedding inputs (e.g. math questions, capital cities) are intercepted and rejected correctly.</li>
               </ul>
             </div>
           </div>

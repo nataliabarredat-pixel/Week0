@@ -290,3 +290,98 @@ Mockup Image Reference:
 ## 10. Scope Cuts
 - **Automated Social Publishing (API posting)**: Posts are copied manually rather than calling Facebook/LinkedIn Graph APIs.
 - **Analytics Database Engine**: local storage is used to aggregate A/B impressions instead of a heavy Google Analytics tracker integration.
+
+---
+
+# PART 4: PUBLIC CHATBOT & GUIDED ASSISTANT (`/chat`)
+
+## 1. Problem Definition
+Couples starting their wedding planning journey are often overwhelmed and do not know what questions to ask first. At the same time, platforms need to guide users through a structured onboarding flow without letting users ask irrelevant or abusive queries that derail the assistant. The **Public Chatbot & Guided Assistant** solves this by enforcing an intake flow, answering wedding-specific queries using tailored logic, activating real-time query guardrails, offering a direct human planner escalation checkpoint, and capturing transcript history along with user feedback ratings.
+
+## 2. User Definition
+- **Engaged Couples**: Seeking immediate, guided support to kickstart their wedding roadmap.
+- **Wedding Planners**: Evaluating how the system collects and escalates qualified leads (checkpoint tickets).
+- **Evaluators**: Reviewing the chatbot's guardrails, persistence, and automated verification logs.
+
+## 3. Product Spec
+- **Chat UI**: Modern conversational message bubbles (User vs. Assistant) with a blush rose glassmorphism style, smooth message list scrolling, and typing status simulator.
+- **Intake Flow (3 Questions)**:
+  - Q1: "Welcome to EverAfter! Let's start with your names. What should we call you?"
+  - Q2: "What is your estimated wedding budget?"
+  - Q3: "What is your dream wedding style? (Rustic, Modern, Classic, Boho, Vintage)"
+- **Response Logic**: Dynamically structures responses based on the intake values (e.g. references their budget caps and design themes during dialogue).
+- **Guardrail Interceptor**: Inspects query text. If it doesn't contain wedding-related keywords, it outputs a friendly guardrail rejection message: *"I am specialized in helping you plan your dream wedding. Let's get back to your event arrangements!"*
+- **Human Checkpoint**: Escalation modal collects Name, Email, and Notes. Once submitted, it commits the escalation ticket to the active conversation history.
+- **Chat/Test Storage**: Saves conversations to Supabase `chat_records` table, containing client names, budget, style, messages JSON array, escalation details JSON, and feedback rating. Falls back to a local storage mock database.
+- **Feedback System**: Thumbs up/down icons next to assistant responses, and a session-end 5-star rating widget in the sidebar.
+- **Live Test Runner Suite**: Runs 6 verification tests (3 software, 3 user scenarios) showing logs and success badges.
+
+## 4. UX Mockup Prompt
+"Create a clean, modern UX mockup for a student-built web app page: Public Chatbot / Guided Assistant. The interface should have a luxury gold/rose theme. It should display a conversational chat interface with an active intake flow (asking for names, budget, style), color-coded user and assistant speech bubbles, a thumbs-up/down feedback selector, a prominent 'Request Human Advisor' escalation button, a sidebar showing saved chat history, and a live developer test console reporting 3 user tests and 3 software tests passing. No device frame."
+
+Mockup Image Reference:
+![Chat Assistant Mockup](file:///C:/Users/user/.gemini/antigravity/brain/e8f28ebc-30e7-4217-86c5-ed41feed6f9e/chat_assistant_mockup_1782590968341.png)
+
+## 5. Architecture Sketch
+- **Frontend Component**: `/chat/page.tsx` (Client component handling chat state, messages, intake step indexes, overlays, feedback hooks, and test runs).
+- **Backend Service**: Supabase connection container inside `src/utils/supabaseClient.ts` reading from/writing to `chat_records` table.
+- **Data Flow**:
+  1. Chat initialized -> Assistant pushes Q1 -> User replies.
+  2. Intake answers stored in state variables -> Assistant pushes Q2 -> Q3.
+  3. Intake complete -> Chat unlocked for free-form dialogue.
+  4. Messages evaluated against keywords -> Guardrail matches or passes -> Response generated.
+  5. Escalate clicked -> Modal saves contact details -> Updates `chat_records` record.
+  6. Feedback clicked -> Saves rating -> Syncs with database.
+
+## 6. Tech Stack
+| Tool / Library | Purpose | Rationale |
+| :--- | :--- | :--- |
+| **Next.js App Router** | Core framework | File-based client/server routes |
+| **Tailwind CSS v4** | UI Styling | Premium glassmorphism, responsive speech bubbles, gold/rose colors |
+| **Lucide Icons** | Visual assets | Icons for send buttons, thumbs, ratings, checkmarks, and alerts |
+| **Supabase Client** | Data persistence | PostgreSQL database integration for chat sessions |
+
+## 7. DevOps Plan
+- **Git Commits**: At least 5 commits tracking separate milestones.
+- **Vercel Deployment**: Live route at `/chat`.
+- **SQL Table Creation Blueprint**:
+  ```sql
+  CREATE TABLE chat_records (
+    id BIGSERIAL PRIMARY KEY,
+    couple_names TEXT,
+    budget NUMERIC(10,2),
+    wedding_style TEXT,
+    messages JSONB NOT NULL DEFAULT '[]'::jsonb,
+    escalation_contact JSONB,
+    feedback_rating INTEGER,
+    feedback_comments TEXT,
+    created_at TIMESTAMPTZ DEFAULT NOW()
+  );
+  ```
+
+## 8. Test Plan
+
+### Software Tests
+1. **Intake Flow Validation**: Asserts that the client correctly steps through Q1, Q2, and Q3, mapping the values to couple names, budget, and style, and unlocks the chat once finished.
+2. **Guardrail Enforcement**: Asserts that sending off-topic queries (e.g. "Explain nuclear physics") triggers the guardrail flag and appends a guardrail rejection to the message history.
+3. **Escalation persistence**: Asserts that completing the escalation form saves contact details to the conversation record and locks escalation state.
+
+### External User Tests
+1. **Charlotte's Detail Planning Test**: Charlotte tests intake and asks a wedding-specific question ("Where should I allocate my floral budget?"). Verifies the bot references her $45,000 budget and rustic style.
+2. **Marcus & Liam's Domain Escalation Test**: Marcus inputs his groom details and triggers the human checkpoint escalation. Verifies the modal accepts inputs and successfully records the ticket.
+3. **Off-Topic Input Rejection Test**: Verifies that typing "Who won the football game?" is flagged, rejected, and logged as guardrail validation.
+
+## 9. Codex/Claude Code Implementation Prompt
+"Implement client-side route `/chat` inside `src/app/chat/page.tsx`.
+1. Create a luxury gold/rose styled page displaying a chat interface.
+2. Structure a 3-question intake guided chat onboarding (names -> budget -> style).
+3. Unlock the chat panel for free-form dialogue after intake. Inspect queries against wedding keywords and respond with guardrail warnings if off-topic.
+4. Add a 'Escalate to Advisor' button that prompts for name, email, and notes, and updates the database record.
+5. Add thumbs up/down and a 5-star rating selector to save user feedback.
+6. Write chat logs to Supabase table `chat_records` (with local storage mock fallback).
+7. Include an automated Live Test Runner sidebar console to verify the 3 software tests and 3 simulated user tests."
+
+## 10. Scope Cuts
+- **Real LLM Integration**: Generates responsive rule-based advice mapping user style/budget choices instead of using expensive/unstable external APIs.
+- **Real-Time WebSockets Planners chat**: Escapes via ticket records saved to the database instead of live websocket connections.
+
