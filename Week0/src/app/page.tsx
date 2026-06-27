@@ -119,6 +119,34 @@ export default function Home() {
   // Interactive roadmap tab state
   const [activeRoadmapTab, setActiveRoadmapTab] = useState(0);
 
+  // A/B Headline testing state
+  const [abVersion, setAbVersion] = useState<"A" | "B">("A");
+
+  useEffect(() => {
+    // Check local storage for assigned version
+    let assigned = localStorage.getItem("everafter_ab_headline_version") as "A" | "B" | null;
+    if (!assigned) {
+      assigned = Math.random() < 0.5 ? "A" : "B";
+      localStorage.setItem("everafter_ab_headline_version", assigned);
+    }
+    setAbVersion(assigned);
+
+    // Track impression in localStorage if not already counted this session
+    const countedSession = sessionStorage.getItem("everafter_ab_counted_session");
+    if (!countedSession) {
+      const impKey = `everafter_ab_impressions_${assigned}`;
+      const currentImp = parseInt(localStorage.getItem(impKey) || "0");
+      localStorage.setItem(impKey, String(currentImp + 1));
+      sessionStorage.setItem("everafter_ab_counted_session", "true");
+    }
+  }, []);
+
+  const handleCtaClick = () => {
+    const clickKey = `everafter_ab_clicks_${abVersion}`;
+    const currentClicks = parseInt(localStorage.getItem(clickKey) || "0");
+    localStorage.setItem(clickKey, String(currentClicks + 1));
+  };
+
   // Update countdown timer
   useEffect(() => {
     const timer = setInterval(() => {
@@ -167,10 +195,21 @@ export default function Home() {
           </div>
 
           <h1 className="mx-auto max-w-4xl font-serif text-5xl md:text-7xl font-extrabold tracking-tight leading-[1.1] text-stone-900 dark:text-stone-100">
-            Design Your Perfect Day with{" "}
-            <span className="bg-gradient-to-r from-rose-700 via-rose-500 to-gold-500 bg-clip-text text-transparent dark:from-rose-400 dark:to-gold-400">
-              EverAfter
-            </span>
+            {abVersion === "B" ? (
+              <>
+                <span className="bg-gradient-to-r from-rose-700 via-rose-500 to-gold-500 bg-clip-text text-transparent dark:from-rose-400 dark:to-gold-400">
+                  EverAfter
+                </span>{" "}
+                | The Premium Wedding Workspace for Discerning Couples
+              </>
+            ) : (
+              <>
+                Design Your Perfect Day with{" "}
+                <span className="bg-gradient-to-r from-rose-700 via-rose-500 to-gold-500 bg-clip-text text-transparent dark:from-rose-400 dark:to-gold-400">
+                  EverAfter
+                </span>
+              </>
+            )}
           </h1>
 
           <p className="mx-auto max-w-2xl text-lg text-stone-500 dark:text-stone-400 leading-relaxed font-light">
@@ -180,6 +219,7 @@ export default function Home() {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
             <Link
               href="/workspace"
+              onClick={handleCtaClick}
               className="inline-flex h-12 items-center justify-center rounded-full bg-gradient-to-r from-rose-600 to-rose-500 px-8 text-base font-semibold text-white shadow-lg shadow-rose-600/10 hover:from-rose-500 hover:to-rose-400 transition-all hover:-translate-y-0.5"
             >
               Enter Couple Workspace
@@ -419,6 +459,7 @@ export default function Home() {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-2">
             <Link
               href="/workspace"
+              onClick={handleCtaClick}
               className="inline-flex h-12 items-center justify-center rounded-full bg-white px-8 text-sm font-semibold text-rose-900 hover:bg-stone-50 transition-all hover:-translate-y-0.5 shadow-lg"
             >
               Open Couple Workspace
