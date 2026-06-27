@@ -67,6 +67,16 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
+                <Link href="/marketing" className="text-sm text-stone-500 hover:text-rose-600 dark:text-stone-400 dark:hover:text-rose-300">
+                  Marketing Engine 📣
+                </Link>
+              </li>
+              <li>
+                <Link href="/chat" className="text-sm text-stone-500 hover:text-rose-600 dark:text-stone-400 dark:hover:text-rose-300">
+                  Guided Assistant Chat 💬
+                </Link>
+              </li>
+              <li>
                 <Link href="/core" className="text-sm text-stone-500 hover:text-rose-600 dark:text-stone-400 dark:hover:text-rose-300">
                   Generative Core Agent 🌸
                 </Link>

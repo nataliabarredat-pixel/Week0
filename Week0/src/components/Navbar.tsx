@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Heart, Sparkles, LayoutDashboard, BookOpen, Layers, BarChart2, DollarSign, Compass } from "lucide-react";
+import { Heart, Sparkles, LayoutDashboard, BookOpen, Layers, BarChart2, DollarSign, Compass, Megaphone, MessageSquare } from "lucide-react";
 import { useEffect, useState } from "react";
 
 export default function Navbar() {
@@ -105,6 +105,30 @@ export default function Navbar() {
             >
               <Sparkles className="h-4 w-4" />
               <span>Core Agent</span>
+            </Link>
+
+            <Link
+              href="/marketing"
+              className={`flex items-center space-x-1 text-sm font-medium tracking-wide transition-colors ${
+                pathname.startsWith("/marketing") 
+                  ? "text-rose-600 dark:text-rose-400" 
+                  : "text-stone-600 hover:text-rose-600 dark:text-stone-300 dark:hover:text-rose-400"
+              }`}
+            >
+              <Megaphone className="h-4 w-4" />
+              <span>Marketing</span>
+            </Link>
+
+            <Link
+              href="/chat"
+              className={`flex items-center space-x-1 text-sm font-medium tracking-wide transition-colors ${
+                pathname.startsWith("/chat") 
+                  ? "text-rose-600 dark:text-rose-400" 
+                  : "text-stone-600 hover:text-rose-600 dark:text-stone-300 dark:hover:text-rose-400"
+              }`}
+            >
+              <MessageSquare className="h-4 w-4" />
+              <span>Chat</span>
             </Link>
 
             <Link
