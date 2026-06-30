@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { 
   Heart, Sparkles, Compass, CheckSquare, DollarSign, Users, 
   Award, Briefcase, ChevronRight, Play, Terminal, Shield, 
@@ -119,6 +119,17 @@ export default function DemoPage() {
   ]);
   const [isSimulatingAgent, setIsSimulatingAgent] = useState(false);
 
+  const activeIntervalRef = useRef<NodeJS.Timeout | null>(null);
+
+  // Clean up running interval on unmount
+  useEffect(() => {
+    return () => {
+      if (activeIntervalRef.current) {
+        clearInterval(activeIntervalRef.current);
+      }
+    };
+  }, []);
+
   // Run mock action in stepper
   const handleSimulateAction = (stepIdx: number) => {
     if (stepIdx === 0) {
@@ -143,16 +154,25 @@ export default function DemoPage() {
     const agent = AGENTS.find(a => a.id === agentId);
     if (!agent) return;
 
+    // Clear any active interval simulation before running a new one
+    if (activeIntervalRef.current) {
+      clearInterval(activeIntervalRef.current);
+      activeIntervalRef.current = null;
+    }
+
     setIsSimulatingAgent(true);
     setConsoleLogs([`Initializing telemetry link to ${agent.name}...`]);
 
     let logIdx = 0;
-    const interval = setInterval(() => {
+    activeIntervalRef.current = setInterval(() => {
       if (logIdx < agent.trace.length) {
         setConsoleLogs(prev => [...prev, agent.trace[logIdx]]);
         logIdx++;
       } else {
-        clearInterval(interval);
+        if (activeIntervalRef.current) {
+          clearInterval(activeIntervalRef.current);
+          activeIntervalRef.current = null;
+        }
         setIsSimulatingAgent(false);
       }
     }, 800);
@@ -359,6 +379,7 @@ export default function DemoPage() {
 
             <div className="flex-grow overflow-y-auto rounded-xl bg-stone-900 p-4 font-mono text-[10px] leading-relaxed text-emerald-400 space-y-2 border border-stone-950">
               {consoleLogs.map((log, idx) => {
+                if (!log) return null;
                 const isSystem = log.includes("Initializing") || log.includes("Select");
                 return (
                   <p key={idx} className={`transition-all animate-fade-in ${isSystem ? "text-stone-400 italic" : ""}`}>
