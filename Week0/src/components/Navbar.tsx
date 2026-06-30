@@ -58,19 +58,7 @@ export default function Navbar() {
               <LayoutDashboard className="h-4 w-4" />
               <span>Workspace</span>
             </Link>
-
-            <Link
-              href="/dashboard"
-              className={`flex items-center space-x-1 text-sm font-medium tracking-wide transition-colors ${
-                pathname.startsWith("/dashboard") 
-                  ? "text-rose-600 dark:text-rose-400" 
-                  : "text-stone-600 hover:text-rose-600 dark:text-stone-300 dark:hover:text-rose-400"
-              }`}
-            >
-              <Activity className="h-4 w-4" />
-              <span>Dashboard</span>
-            </Link>
-
+            
             <Link
               href="/demo"
               className={`flex items-center space-x-1 text-sm font-medium tracking-wide transition-colors ${
@@ -81,6 +69,18 @@ export default function Navbar() {
             >
               <Play className="h-4 w-4" />
               <span>Demo</span>
+            </Link>
+            
+            <Link
+              href="/dashboard"
+              className={`flex items-center space-x-1 text-sm font-medium tracking-wide transition-colors ${
+                pathname.startsWith("/dashboard") 
+                  ? "text-rose-600 dark:text-rose-400" 
+                  : "text-stone-600 hover:text-rose-600 dark:text-stone-300 dark:hover:text-rose-400"
+              }`}
+            >
+              <Activity className="h-4 w-4" />
+              <span>Dashboard</span>
             </Link>
 
             <Link
@@ -128,7 +128,7 @@ export default function Navbar() {
               }`}
             >
               <Sparkles className="h-4 w-4" />
-              <span>Core Agent</span>
+              <span>Core</span>
             </Link>
 
             <Link
