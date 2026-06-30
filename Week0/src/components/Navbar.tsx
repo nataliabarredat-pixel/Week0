@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Heart, Sparkles, LayoutDashboard, BookOpen, Layers, CheckCircle2, AlertCircle, BarChart2, Activity, Compass } from "lucide-react";
+import { Heart, Sparkles, LayoutDashboard, BookOpen, Layers, BarChart2, DollarSign, Compass, Megaphone, MessageSquare, Activity, Play } from "lucide-react";
 import { useEffect, useState } from "react";
 
 export default function Navbar() {
@@ -35,7 +35,7 @@ export default function Navbar() {
           </div>
 
           {/* Navigation Links */}
-          <div className="hidden md:flex items-center space-x-8">
+          <div className="hidden md:flex items-center space-x-6">
             <Link
               href="/"
               className={`text-sm font-medium tracking-wide transition-colors ${
@@ -46,9 +46,10 @@ export default function Navbar() {
             >
               Home
             </Link>
+            
             <Link
               href="/workspace"
-              className={`flex items-center space-x-1.5 text-sm font-medium tracking-wide transition-colors ${
+              className={`flex items-center space-x-1 text-sm font-medium tracking-wide transition-colors ${
                 pathname.startsWith("/workspace") 
                   ? "text-rose-600 dark:text-rose-400" 
                   : "text-stone-600 hover:text-rose-600 dark:text-stone-300 dark:hover:text-rose-400"
@@ -57,9 +58,10 @@ export default function Navbar() {
               <LayoutDashboard className="h-4 w-4" />
               <span>Workspace</span>
             </Link>
+
             <Link
               href="/dashboard"
-              className={`flex items-center space-x-1.5 text-sm font-medium tracking-wide transition-colors ${
+              className={`flex items-center space-x-1 text-sm font-medium tracking-wide transition-colors ${
                 pathname.startsWith("/dashboard") 
                   ? "text-rose-600 dark:text-rose-400" 
                   : "text-stone-600 hover:text-rose-600 dark:text-stone-300 dark:hover:text-rose-400"
@@ -68,27 +70,46 @@ export default function Navbar() {
               <Activity className="h-4 w-4" />
               <span>Dashboard</span>
             </Link>
+
             <Link
               href="/demo"
-              className={`flex items-center space-x-1.5 text-sm font-medium tracking-wide transition-colors ${
+              className={`flex items-center space-x-1 text-sm font-medium tracking-wide transition-colors ${
                 pathname.startsWith("/demo") 
                   ? "text-rose-600 dark:text-rose-400" 
                   : "text-stone-600 hover:text-rose-600 dark:text-stone-300 dark:hover:text-rose-400"
               }`}
             >
-              <Compass className="h-4 w-4" />
+              <Play className="h-4 w-4" />
               <span>Demo</span>
             </Link>
+
             <Link
-              href="/#roadmap"
-              className="flex items-center space-x-1.5 text-sm font-medium tracking-wide text-stone-600 hover:text-rose-600 transition-colors dark:text-stone-300 dark:hover:text-rose-400"
+              href="/product"
+              className={`flex items-center space-x-1 text-sm font-medium tracking-wide transition-colors ${
+                pathname.startsWith("/product") 
+                  ? "text-rose-600 dark:text-rose-400" 
+                  : "text-stone-600 hover:text-rose-600 dark:text-stone-300 dark:hover:text-rose-400"
+              }`}
             >
-              <Layers className="h-4 w-4" />
-              <span>Roadmap</span>
+              <Compass className="h-4 w-4" />
+              <span>Features</span>
             </Link>
+
+            <Link
+              href="/pricing"
+              className={`flex items-center space-x-1 text-sm font-medium tracking-wide transition-colors ${
+                pathname.startsWith("/pricing") 
+                  ? "text-rose-600 dark:text-rose-400" 
+                  : "text-stone-600 hover:text-rose-600 dark:text-stone-300 dark:hover:text-rose-400"
+              }`}
+            >
+              <DollarSign className="h-4 w-4" />
+              <span>Pricing</span>
+            </Link>
+
             <Link
               href="/research"
-              className={`flex items-center space-x-1.5 text-sm font-medium tracking-wide transition-colors ${
+              className={`flex items-center space-x-1 text-sm font-medium tracking-wide transition-colors ${
                 pathname.startsWith("/research") 
                   ? "text-rose-600 dark:text-rose-400" 
                   : "text-stone-600 hover:text-rose-600 dark:text-stone-300 dark:hover:text-rose-400"
@@ -97,9 +118,46 @@ export default function Navbar() {
               <BarChart2 className="h-4 w-4" />
               <span>Research</span>
             </Link>
+
+            <Link
+              href="/core"
+              className={`flex items-center space-x-1 text-sm font-medium tracking-wide transition-colors ${
+                pathname.startsWith("/core") 
+                  ? "text-rose-600 dark:text-rose-400" 
+                  : "text-stone-600 hover:text-rose-600 dark:text-stone-300 dark:hover:text-rose-400"
+              }`}
+            >
+              <Sparkles className="h-4 w-4" />
+              <span>Core Agent</span>
+            </Link>
+
+            <Link
+              href="/marketing"
+              className={`flex items-center space-x-1 text-sm font-medium tracking-wide transition-colors ${
+                pathname.startsWith("/marketing") 
+                  ? "text-rose-600 dark:text-rose-400" 
+                  : "text-stone-600 hover:text-rose-600 dark:text-stone-300 dark:hover:text-rose-400"
+              }`}
+            >
+              <Megaphone className="h-4 w-4" />
+              <span>Marketing</span>
+            </Link>
+
+            <Link
+              href="/chat"
+              className={`flex items-center space-x-1 text-sm font-medium tracking-wide transition-colors ${
+                pathname.startsWith("/chat") 
+                  ? "text-rose-600 dark:text-rose-400" 
+                  : "text-stone-600 hover:text-rose-600 dark:text-stone-300 dark:hover:text-rose-400"
+              }`}
+            >
+              <MessageSquare className="h-4 w-4" />
+              <span>Chat</span>
+            </Link>
+
             <Link
               href="/docs"
-              className={`flex items-center space-x-1.5 text-sm font-medium tracking-wide transition-colors ${
+              className={`flex items-center space-x-1 text-sm font-medium tracking-wide transition-colors ${
                 pathname.startsWith("/docs") 
                   ? "text-rose-600 dark:text-rose-400" 
                   : "text-stone-600 hover:text-rose-600 dark:text-stone-300 dark:hover:text-rose-400"
