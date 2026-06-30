@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Heart, GitBranch, Globe, Compass } from "lucide-react";
+import { Heart, Mail, GitBranch, Globe, Compass } from "lucide-react";
 
 export default function Footer() {
   return (
@@ -33,11 +33,6 @@ export default function Footer() {
             </h3>
             <ul className="mt-4 space-y-2.5">
               <li>
-                <Link href="/product" className="text-sm font-semibold text-rose-700 hover:text-rose-600 dark:text-rose-450 dark:hover:text-rose-300">
-                  Platform Showcase ⚡
-                </Link>
-              </li>
-              <li>
                 <Link href="/workspace" className="text-sm text-stone-500 hover:text-rose-600 dark:text-stone-400 dark:hover:text-rose-300">
                   Budget Tracker
                 </Link>
@@ -52,38 +47,33 @@ export default function Footer() {
                   Seating Chart
                 </Link>
               </li>
+              <li>
+                <Link href="/workspace" className="text-sm text-stone-500 hover:text-rose-600 dark:text-stone-400 dark:hover:text-rose-300">
+                  Wedding Crew
+                </Link>
+              </li>
+              <li>
+                <Link href="/dashboard" className="text-sm font-semibold text-rose-700 hover:text-rose-600 dark:text-rose-400 dark:hover:text-rose-300">
+                  Dashboard Analytics 📊
+                </Link>
+              </li>
+              <li>
+                <Link href="/demo" className="text-sm font-semibold text-rose-700 hover:text-rose-600 dark:text-rose-400 dark:hover:text-rose-300">
+                  Guided Tour / Demo 🚀
+                </Link>
+              </li>
             </ul>
           </div>
 
-          {/* Resources & Agents */}
+          {/* Developers & Docs */}
           <div>
             <h3 className="text-xs font-semibold uppercase tracking-wider text-rose-800 dark:text-rose-400">
-              Resources & Tools
+              Resources
             </h3>
             <ul className="mt-4 space-y-2.5">
               <li>
-                <Link href="/pricing" className="text-sm font-semibold text-rose-700 hover:text-rose-600 dark:text-rose-450 dark:hover:text-rose-300">
-                  Interactive Pricing 💰
-                </Link>
-              </li>
-              <li>
-                <Link href="/marketing" className="text-sm text-stone-500 hover:text-rose-600 dark:text-stone-400 dark:hover:text-rose-300">
-                  Marketing Engine 📣
-                </Link>
-              </li>
-              <li>
-                <Link href="/chat" className="text-sm text-stone-500 hover:text-rose-600 dark:text-stone-400 dark:hover:text-rose-300">
-                  Guided Assistant Chat 💬
-                </Link>
-              </li>
-              <li>
-                <Link href="/core" className="text-sm text-stone-500 hover:text-rose-600 dark:text-stone-400 dark:hover:text-rose-300">
-                  Generative Core Agent 🌸
-                </Link>
-              </li>
-              <li>
-                <Link href="/research" className="text-sm text-stone-500 hover:text-rose-600 dark:text-stone-400 dark:hover:text-rose-300">
-                  Research Module
+                <Link href="/research" className="text-sm font-semibold text-rose-700 hover:text-rose-600 dark:text-rose-400 dark:hover:text-rose-300">
+                  Research Module 🌸
                 </Link>
               </li>
               <li>
@@ -99,6 +89,11 @@ export default function Footer() {
               <li>
                 <Link href="/docs#database-schema" className="text-sm text-stone-500 hover:text-rose-600 dark:text-stone-400 dark:hover:text-rose-300">
                   DB Setup Schema
+                </Link>
+              </li>
+              <li>
+                <Link href="/docs#vercel-deployment" className="text-sm text-stone-500 hover:text-rose-600 dark:text-stone-400 dark:hover:text-rose-300">
+                  Vercel Setup Guide
                 </Link>
               </li>
             </ul>
